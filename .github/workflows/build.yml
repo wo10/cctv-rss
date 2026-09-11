@@ -1,0 +1,36 @@
+name: Build RSS Feeds
+
+on:
+  schedule:
+    # 每小时整点运行一次（UTC 时间，北京时间 = UTC+8）
+    - cron: '0 * * * *'
+  workflow_dispatch:  # 支持手动触发
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate RSS feeds
+        run: python3 scripts/cctv_rss.py
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./feeds
+          allow_empty_commit: true   # 即使内容无变化也提交，防止 60 天不活跃被自动禁用
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
