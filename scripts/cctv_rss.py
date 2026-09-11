@@ -90,7 +90,7 @@ def build_index(columns, results):
     rows = []
     for col, ok in results:
         status = "✅ 正常" if ok else "❌ 失败"
-        feed_url = f"feeds/{col['id']}.xml"
+        feed_url = f"{col['id']}.xml"
         rows.append(
             f"<tr><td>{html.escape(col['name'])}</td>"
             f"<td><code>{col['id']}</code></td>"

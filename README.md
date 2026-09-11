@@ -8,7 +8,7 @@
 部署后，你的订阅地址为：
 
 ```
-https://<你的GitHub用户名>.github.io/<仓库名>/feeds/cjdc.xml
+https://<你的GitHub用户名>.github.io/<仓库名>/cjdc.xml
 ```
 
 索引页（查看所有栏目）：
